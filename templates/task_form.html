@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>{% if tasks %}Edit{% else %}New{% endif %} Task</title></head>
+
+<link rel="stylesheet" href=" {% static 'index.css' %} ">
+<body>
+    <h1>{% if tasks %}Edit{% else %}Create New{% endif %} Task</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" value="{{ tasks.title|default_if_none:'' }}">
+        <br>
+        <label for="description">Description:</label>
+        <textarea name="description" id="description">{{ tasks.description|default_if_none:'' }}</textarea>
+        <br>
+        {% if tasks %}
+        <label for="completed">Completed:</label>
+        <input type="checkbox" name="completed" id="completed" {% if tasks.completed %}checked{% endif %}>
+        <br>
+        {% endif %}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'task_list' %}">Back to Task List</a>
+
+    {% load static %}
+    <script src= '{% static "index.js"  %}' >   </script>
+</body>
+</html>

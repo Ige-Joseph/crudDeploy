@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Task List</title></head>
+
+    <link rel="stylesheet" href=" {% static 'index.css' %} ">
+<body>
+    <h1>Task List</h1>
+    <a href="{% url 'task_create' %}">Create New Task</a>
+    <ul>
+        {% for tasks in tasks %}
+        <li>
+            <h3>{{ tasks.Title }}</h3>
+            <p>{{ tasks.decription  }}</p>
+            <p>Status: {{ tasks.completed|yesno:"Completed,Incomplete" }}</p>
+            <a href="{% url 'task_update' tasks.id %}">Edit</a> |
+            <a href="{% url 'task_delete' tasks.id %}">Delete</a>
+        </li>
+ 
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% load static %}
+    <script src= '{% static "index.js"  %}' >   </script>
+</body>
+</html>
